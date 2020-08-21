@@ -1,4 +1,4 @@
-# triangulation
+# Triangulation
 
 This ROS node is meant to be used with any autonmous car system to locate objects in 3D world coordinates from 2D rosbag images. It's purpose is for adding missing map elements, building maps specific objects in the car's environment, etc. 
 
