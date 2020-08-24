@@ -6,10 +6,10 @@ The required elements for using this code package are:
 1. A camera feed or rosbag that includes the object(s) of interest
 2. Published Odometry messages
 3. A published transform tree including:
-   -The camera frame 
-   -The odometry frame
-   -Any necessary frames to transform between the previous two frames
-   -Geometry, sensor, and nav messages, message filters, and Eigen libraries installed 
+   - The camera frame 
+   - The odometry frame
+   - Any necessary frames to transform between the previous two frames
+   - Geometry, sensor, and nav messages, message filters, and Eigen libraries installed 
 
 The overview of the use of this node is as follows:
 1. A rosbag is chosen or recorded that contains the object(s) of interest. A diverse range of perspectives to take a large number of samples should be taken (30 - 50 images). This diversity will depend on the direction of appraoch to the object and the speed of approach. 
@@ -34,7 +34,6 @@ mkdir [directory name] ex. "triangulation"
 cd [directory name]
 mkdir [name of folder to store images] ex. "images" 
 ```
-
 ### Launch File:
 Open the launch file, "triangulation.launch" and make the following changes to the parameters:
 1. Change the value of "camera frame" to the name of the camera frame in your repository 
