@@ -57,9 +57,9 @@ roslaunch triangulation triangulation.launch
 Open a new terminal 
 
 ```
-rosbag play "path/to/your/rosbag" --clock -r 0.5 -s _start time for collecting images_ -u _interval of collecting images_ 
+rosbag play "path/to/your/rosbag" --clock -r 0.5 -s start_time -u interval
 ```
-In the last command, the start time for collecting images should be determined beforehand by playing the rosbag with collect_image set to 0. Note the time relative to the start of your rosbag that you want to start collecting images and the interval from that point over which you want to continue collecting images. If the entire rosbag is used, omit the -s and -u from the command. 
+In the last command, the start time for collecting images should be determined beforehand by playing the rosbag with collect_image set to 0 in the launch file. Note the time relative to the start of your rosbag that you want to start collecting images and the interval from that point over which you want to continue collecting images. If the entire rosbag is used, omit the -s and -u from the command. 
 
  A much more manual way of getting the images you want would be to delete the unwanted images from the folder where you stored the images and the lines of the CSV that pertain to it. This is subject to more error but also allows you to manipulate the samples used for triangulation. 
 
