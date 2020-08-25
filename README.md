@@ -14,7 +14,7 @@ The required elements for using this code package are:
 4. Geometry, sensor, and nav messages, message filters, and Eigen libraries installed 
 
 The overview of the use of this node is as follows:
-1. A rosbag is chosen or recorded that contains the object(s) of interest. **A diverse range of perspectives to take a large number of samples should be taken (30 - 50 images)**. This diversity will depend on the direction of appraoch to the object and the speed of approach. 
+1. A rosbag is chosen or recorded that contains the object(s) of interest. **A diverse range of perspectives to take a large number of samples should be taken (30 - 50 images)**. This diversity will depend on the direction and speed of approach to the object.
 2. The ROS node is used with the rosbag to collect images and store them in a folder. The images are collected at a regular frequency every second. The ROS node will also record the image location, transformation matrices, and car location in the odometry frame in a CSV file. 
 3. The triangulation python script takes in the information collected from the ROS node and bounding boxes must be manually drawn onto the sample images. 
 4. The script will automatically calculate the 3D world coordinate location of the object of interest. 
@@ -65,6 +65,8 @@ In the last command, the start time for collecting images should be determined b
 
 A much more manual way of getting the images you want would be to delete the unwanted images from the folder where you stored the images and the lines of the CSV that pertain to it. This is subject to more error but also allows you to manipulate the samples used for triangulation so this is a useful option for finely selecting the samples to use. 
 
+A reminder that it is strongly suggested to use at least two different perspectives of the object at 90 degrees to each other. A similar effect can be achieved by driving past the object or turning past the object as the dimension that is often lacking in information is its depth.
+
 ##### Working with multiple rosbags:
 
 As is preferred, you want to get as much information through diverse perspectives of the object of interest. Dimensions with less diversity of information provided will be less accurate. Therefore, you may need to collect information from multiple rosbags or from two intervals in a rosbag. To do this, run the same code above using a different CSV file name. The same images folder can be used. These files will be combined in the python step of this process. 
@@ -89,7 +91,7 @@ Once you've labelled all the images, you will see the 3D world coordinate locati
 ```
 python triangulation.py --box False --csv "your_csv_file.csv" --show True  
 ``` 
-Now you should have the location of your object of interest and be able to visualize how well the estimate matches to the labelled locations. A reminder that it is strongly suggested to use at least two different perspectives of the object at 90 degrees to each other. A similar effect can be achieved by driving past the object or turning past the object as the dimension that is often lacking in information is its depth.  
+Now you should have the location of your object of interest and be able to visualize how well the estimate matches to the labelled locations.   
 
 
 
