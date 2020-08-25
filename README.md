@@ -91,4 +91,4 @@ Once you've labelled all the images, you will see the 3D world coordinate locati
 ```
 python triangulation.py --box False --csv "your_csv_file.csv" --show True  
 ```
-Now you should have the location of your object of interest and be able to visualize how well the estimate matches to the labelled locations. 
+Now you should have the location of your object of interest and be able to visualize how well the estimate matches to the labelled locations.   
