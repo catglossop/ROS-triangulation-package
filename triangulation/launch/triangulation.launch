@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="thread_num" default="4"/>
+    <!-- TRIANGULATION -->
+    <node pkg="triangulation" type="triangulation" name="triangulation" output="screen">
+        <rosparam command="load" file="$(find triangulation)/config/params.yaml" />
+        <param name="camera_frame" value="mono_link" /> <!-- camera frame topic -->
+        <param name="camera_topic" value="/blackfly/image_color" /> <!-- camera feed topic -->
+        <param name="odom" value="/navsat/odom" /> <!-- Odometry topic -->
+        <param name="image_rate" value="3" /> <!-- frequency of collecting images (rate per second) -->
+        <param name="triang_file" value="/home/autoronto/triangulation/data_trig_ped2.csv" /> <!-- location for storing CSV file-->
+        <param name="folder" value="/home/autoronto/triangulation/triang_images_ped2/" /> <!--location for storing captured images -->
+        <param name="collect_image" value="0" />
+        <param name="output_append" value="" />
+    </node>
+</launch>
