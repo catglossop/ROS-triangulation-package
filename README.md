@@ -11,7 +11,7 @@ The required elements for using this code package are:
    - The camera frame 
    - The odometry frame
    - Any necessary frames to transform between the previous two frames
-   - Geometry, sensor, and nav messages, message filters, and Eigen libraries installed 
+4. Geometry, sensor, and nav messages, message filters, and Eigen libraries installed 
 
 The overview of the use of this node is as follows:
 1. A rosbag is chosen or recorded that contains the object(s) of interest. A diverse range of perspectives to take a large number of samples should be taken (30 - 50 images). This diversity will depend on the direction of appraoch to the object and the speed of approach. 
@@ -63,23 +63,22 @@ rosbag play "path/to/your/rosbag" --clock -r 0.5 -s start_time -u interval
 ```
 In the last command, the start time for collecting images should be determined beforehand by playing the rosbag with collect_image set to 0 in the launch file. Note the time relative to the start of your rosbag that you want to start collecting images and the interval from that point over which you want to continue collecting images. If the entire rosbag is used, omit the -s and -u from the command. 
 
- A much more manual way of getting the images you want would be to delete the unwanted images from the folder where you stored the images and the lines of the CSV that pertain to it. This is subject to more error but also allows you to manipulate the samples used for triangulation. 
+A much more manual way of getting the images you want would be to delete the unwanted images from the folder where you stored the images and the lines of the CSV that pertain to it. This is subject to more error but also allows you to manipulate the samples used for triangulation so this is a useful option for finely selecting the samples to use. 
 
 ##### Working with multiple rosbags:
 
-As is preferred, you want to get as much information through diverse perspectives of the object of interest. Dimensions that less information is collected on will be less accurate. Therefore, you may need to collect information from multiple rosbags or from two intervals in a rosbag. To do this, run the same code above using a different CSV file name. The same folder can be used. These files will be combined in the next step 
-
+As is preferred, you want to get as much information through diverse perspectives of the object of interest. Dimensions with less diversity of information provided will be less accurate. Therefore, you may need to collect information from multiple rosbags or from two intervals in a rosbag. To do this, run the same code above using a different CSV file name. The same images folder can be used. These files will be combined in the python step of this process. 
 
 Now you can start processing the images for the triangulation algorithm. 
 
 ### Python Script:
 
-If you used multiple rosbags or intervals of the rosbag, first run the following command:
+If you used multiple rosbags or intervals of a rosbag, first run the following command:
 ```
 python triangulation.py --combine -1 <file1> -2 <file2> -o <outputfile>
 ```
 
-This will append two CSV files into the name of the final CSV that you choose. The output should be "Successfully concatenated csv files"
+This will append two CSV files into the output CSV that you choose. The output should be "Successfully concatenated csv files".
 
 Now that all the data was been prepared, the sample images can be processed. This means labelling the images with object centres. The triangulation algorithm will automatically run after this. Run the following command:
 ```
@@ -90,6 +89,7 @@ Once you've labelled all the images, you will see the 3D world coordinate locati
 ```
 python triangulation.py --box False --csv "your_csv_file.csv" --show True  
 ``` 
+Now you should have the location of your object of interest and be able to visualize how well the estimate matches to the labelled locations. A reminder that it is strongly suggested to use at least two different perspectives of the object at 90 degrees to each other. A similar effect can be achieved by driving past the object 
 
 
 
