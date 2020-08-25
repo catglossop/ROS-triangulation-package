@@ -14,7 +14,7 @@ The required elements for using this code package are:
 4. Geometry, sensor, and nav messages, message filters, and Eigen libraries installed 
 
 The overview of the use of this node is as follows:
-1. A rosbag is chosen or recorded that contains the object(s) of interest. A diverse range of perspectives to take a large number of samples should be taken (30 - 50 images). This diversity will depend on the direction of appraoch to the object and the speed of approach. 
+1. A rosbag is chosen or recorded that contains the object(s) of interest. **A diverse range of perspectives to take a large number of samples should be taken (30 - 50 images)**. This diversity will depend on the direction of appraoch to the object and the speed of approach. 
 2. The ROS node is used with the rosbag to collect images and store them in a folder. The images are collected at a regular frequency every second. The ROS node will also record the image location, transformation matrices, and car location in the odometry frame in a CSV file. 
 3. The triangulation python script takes in the information collected from the ROS node and bounding boxes must be manually drawn onto the sample images. 
 4. The script will automatically calculate the 3D world coordinate location of the object of interest. 
