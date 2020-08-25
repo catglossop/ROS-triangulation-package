@@ -2,6 +2,8 @@
 
 This ROS node is meant to be used with any autonmous car system to locate objects in 3D world coordinates from 2D rosbag images. It's purpose is for adding missing map elements, building maps specific objects in the car's environment, etc. 
 
+The math for the triangulation algorithm can be found in "triangulation_math.pdf" in this repo. 
+
 The required elements for using this code package are:
 1. A camera feed or rosbag that includes the object(s) of interest
 2. Published Odometry messages
@@ -77,7 +79,20 @@ If you used multiple rosbags or intervals of the rosbag, first run the following
 python triangulation.py --combine -1 <file1> -2 <file2> -o <outputfile>
 ```
 
-This will append two CSV files into the name of the final CSV that you choose. 
+This will append two CSV files into the name of the final CSV that you choose. The output should be "Successfully concatenated csv files"
+
+Now that all the data was been prepared, the sample images can be processed. This means labelling the images with object centres. The triangulation algorithm will automatically run after this. Run the following command:
+```
+python triangulation.py --box True --csv "your_csv_file.csv" --show False 
+```
+This will run the draw_bb function and will output instructions on how to label the images. It will ask you to select two points on each image, the first being the top left corner of the object and the second being the bottom right corner of the object. 
+Once you've labelled all the images, you will see the 3D world coordinate location printed in the terminal. If you want to see the projection of this result on the samples images, run the same command with --show set to True and --box set to False 
+```
+python triangulation.py --box False --csv "your_csv_file.csv" --show True  
+``` 
+
+
+
  
 
 
