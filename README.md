@@ -89,7 +89,7 @@ Once you've labelled all the images, you will see the 3D world coordinate locati
 ```
 python triangulation.py --box False --csv "your_csv_file.csv" --show True  
 ``` 
-Now you should have the location of your object of interest and be able to visualize how well the estimate matches to the labelled locations. A reminder that it is strongly suggested to use at least two different perspectives of the object at 90 degrees to each other. A similar effect can be achieved by driving past the object 
+Now you should have the location of your object of interest and be able to visualize how well the estimate matches to the labelled locations. A reminder that it is strongly suggested to use at least two different perspectives of the object at 90 degrees to each other. A similar effect can be achieved by driving past the object or turning past the object as the dimension that is often lacking in information is its depth.  
 
 
 
