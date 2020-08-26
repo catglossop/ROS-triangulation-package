@@ -2,7 +2,7 @@
 
 This ROS node is meant to be used with any autonmous car system to locate objects in 3D world coordinates from 2D rosbag images. It's purpose is for adding missing map elements, building maps specific objects in the car's environment, etc.
 
-The math for the triangulation algorithm can be found in "triangulation_math.pdf" in this repo.
+The math for the triangulation algorithm can be found in "triangulation_math.pdf" in this repo. This document contains two approaches to triangulation, one iterative and one not. The second approach, the 3D rays approach is implemented in this repo. 
 
 The required elements for using this code package are:
 1. A camera feed or rosbag that includes the object(s) of interest
