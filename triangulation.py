@@ -10,6 +10,18 @@ import pandas as pd
 np_load_old = np.load
 np.load = lambda *a,**k: np_load_old(*a, allow_pickle=True, **k)
 
+def instructions():
+    print 'Labelling sample images instructions: '
+    print 'This function lets the user choose two points on the sample image'
+    print 'The first point should be the top left corner of the object of interest'
+    print 'The second point should be the bottom right corner of the object of interest'
+    ans = raw_input('Continue? (y/n)')
+    print '\n'
+    if ans == 'y':
+        return True
+    else:
+        return False
+
 #------------------------------------------------------------------------------#
 #DRAW_BB: Requires input of two points: 1 at the top left corner of the object
 #and 1 at the bottom right. The object centre for each image is computed and
@@ -22,7 +34,11 @@ np.load = lambda *a,**k: np_load_old(*a, allow_pickle=True, **k)
 #samples: number of sample images being processed
 #------------------------------------------------------------------------------#
 
-def draw_bb(directory, data, points):
+def draw_bb(data, points):
+    cont = instructions()
+    if cont != True:
+        sys.exit()
+    directory = os.getcwd()
     with open(data,"r") as f:
         reader = csv.reader(f,delimiter = ",")
         dat = list(reader)
@@ -106,7 +122,8 @@ def convert_to_matrix(matrix_str):
 #p_final: output of triangulation algorithm
 #------------------------------------------------------------------------------#
 
-def show_final(directory, data, points, p_final):
+def show_final(data, points, p_final):
+    directory = os.getcwd()
     points = np.load(os.path.join(directory, points)) #load points from draw_bb
     data = open(os.path.join(directory,data)) #open CSV
     samples = csv.reader(data)
@@ -123,7 +140,9 @@ def show_final(directory, data, points, p_final):
         implot = plt.imshow(im)
         plt.scatter([x[0]], [x[1]])
         plt.scatter([points[cnt][0]], [points[cnt][1]], c='r')
-        plt.show()
+        plt.show(block=False)
+        plt.pause(1)
+        plt.close()
         cnt += 1
     return True
 
@@ -169,7 +188,8 @@ def combine_csv(file1, file2, outputfile):
 #cam_intrin: camera intrinsics matrix in 3x3 form
 #------------------------------------------------------------------------------#
 
-def LLS_initialize(directory, data, points, cam_intrin):
+def LLS_initialize(data, points, cam_intrin):
+    directory = os.getcwd()
     K = cam_intrin #load camera matrix
     points = np.load(os.path.join(directory, points)) #load points from draw_bb
     data = open(os.path.join(directory,data)) #open CSV
@@ -307,20 +327,18 @@ def main(argv):
     file2 = ''
     outputfile = ''
     try:
-        opts, args = getopt.getopt(argv,"hb:d:c:s:m1:2:o:", ["box=","dir=", "csv=", "show=", "combine", "file1", "file2", "out"])
+        opts, args = getopt.getopt(argv,"hb:c:s:m1:2:o:", ["box=", "csv=", "show=", "combine", "file1", "file2", "out"])
     except getopt.GetoptError:
-        print 'Usage is: python triangulation.py --box <boolgetboundingboxes> --dir <workingdirectory> --csv <triangulationcsv> --show <boolshowimg>'
+        print 'Usage is: python triangulation.py --box <boolgetboundingboxes> --csv <triangulationcsv> --show <boolshowimg>'
         print 'Usage is: python triangulation.py --combine -1 <file1> -2 <file2> -o <outputfile>'
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
-            print 'Usage is: python triangulation.py --box <boolgetboundingboxes> --dir <workingdirectory> --csv <triangulationcsv> --show <boolshowimg>'
+            print 'Usage is: python triangulation.py --box <boolgetboundingboxes> --csv <triangulationcsv> --show <boolshowimg>'
             print 'Usage is: python triangulation.py --combine -1 <file1> -2 <file2> -o <outputfile>'
             sys.exit()
         elif opt in ("-b", "--box"):
             bb = arg
-        elif opt in ("-d", "--dir"):
-            input_dir = arg
         elif opt in ("-c", "--csv"):
             data_final = arg
         elif opt in ("-s", "--show"):
@@ -337,16 +355,16 @@ def main(argv):
             print 'Successfully combined csv files'
             sys.exit()
     print "---------------------------------------------------------------"
-    print "Working Directory is: ", input_dir
+    print "Working Directory is: ", os.getcwd()
     print "Drawing bounding boxes is set to: ", bb
     print "Input CSV file is: ", data_final
     print "Show image is set to: ", show_img
     print '\n'
     if bb == 'True':
-        draw_bb(input_dir, data_final, points_final)
-        init = LLS_initialize(input_dir, data_final, points_final, K)
+        draw_bb(data_final, points_final)
+    init = LLS_initialize(data_final, points_final, K)
     if show_img == 'True':
-        show_final(input_dir, data_final, points_final, init)
+        show_final(data_final, points_final, init)
 
 if __name__ == "__main__":
    main(sys.argv[1:])
