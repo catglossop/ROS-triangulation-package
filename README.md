@@ -5,7 +5,7 @@ This ROS node is meant to be used with any autonmous car system to locate object
 The math for the triangulation algorithm can be found in "triangulation_math.pdf" in this repo. This document contains two approaches to triangulation, one iterative and one not. The second approach, the 3D rays approach is implemented in this repo.
 
 The required elements for using this code package are:
-1. A camera feed or rosbag that includes the object(s) of interest
+1. A camera feed in your rosbag that includes the object(s) of interest
 2. Published Odometry messages
 3. A published transform tree including:
    - The camera frame
@@ -23,11 +23,9 @@ The overview of the use of this node is as follows:
 
 ### ROS node:
 
-Once you have collected or choosen the rosbag you will be using for this task, you have two choices:
-1. Use this node as a standalone node that launches from it's own launch file
-2. Use this integrated into an existing package in your repository
+Once you have collected or choosen the rosbag you will be using for this task, you have will be able to add this repo as a package in your existing repo.
 
-This README will give instructions on the first option but will also go over changes that need to be made for all uses of this node.
+This README will give instructions on how to incorporate this repo into your existing repo. 
 
 #### Working Directory:
 
