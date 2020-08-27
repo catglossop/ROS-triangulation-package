@@ -1,5 +1,6 @@
 // Author: Keenan Burnett
 #include <ros/ros.h>
+#include <ros/console.h>
 #include <cv_bridge/cv_bridge.h>
 #include <iostream>
 #include <sstream>
@@ -8,9 +9,7 @@
 #include <fstream>
 #include "triangulation/triangulation_node.h"
 #include <opencv2/core.hpp>
-#include "utils/zeus_pcl.hpp"
-#include "utils/geometry_utils.hpp"
-#include "utils/zeus_vis.hpp"
+#include <opencv/cv.hpp>
 
 void TriangulationNode::callback(const sensor_msgs::ImageConstPtr& img,
     const nav_msgs::OdometryConstPtr& odom) {

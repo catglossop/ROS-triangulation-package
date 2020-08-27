@@ -41,9 +41,6 @@
 #include <vector>
 #include <map>
 #include <fstream>
-#include "types/Pose2.hpp"
-#include "types/geometry_types.hpp"
-#include "types/zeus_pcl_types.hpp"
 #include "utils/transform_utils.hpp"
 
 //* Triangulation Node
@@ -83,10 +80,12 @@ class TriangulationNode {
     Eigen::Matrix4d P_d = Eigen::Matrix4d::Identity();     /*!< Overall transformation matrix in float form */
     Eigen::Matrix4d P_tilda = Eigen::Matrix4d::Identity();   /*!< Camera matrix to be used in  triangulation */
     int cnt = 0;
+    int collect_image = 1;
     std::string camera_frame = "mono_link";
     int image_rate = 3;
     std::string triang_file = "/home/autoronto/triangulation/data_trig_ped1.csv";
     std::string folder = "/home/autoronto/triangulation/triang_images_ped1/";
+
 
 };
 

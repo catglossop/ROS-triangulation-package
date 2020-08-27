@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(Triangulation)
+project(triangulation)
 include("../config.cmake")
 
 find_package(catkin REQUIRED COMPONENTS
@@ -12,10 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   image_transport
   genmsg
   nav_msgs
-  zeus_msgs
   kalman
-  map
-  zeus_pcl
   tf2
   tf2_geometry_msgs
   tf2_ros
@@ -54,4 +51,3 @@ target_link_libraries(triangulation
   ${catkin_LIBRARIES}
   ${OpenCV_LIBRARIES}
 )
-add_dependencies(triangulation zeus_msgs_generate_messages_cpp)

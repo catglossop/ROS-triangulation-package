@@ -1,6 +1,5 @@
 // Author: Catherine Glossop
 #include <ros/ros.h>
-#include <ros/console.h>
 #include <ros/package.h>
 #include <fstream>
 #include <triangulation/triangulation_node.h>
@@ -8,7 +7,6 @@
 #include <message_filters/synchronizer.h>
 #include <message_filters/sync_policies/approximate_time.h>
 #include <string>
-#include "utils/geometry_utils.hpp"
 
 int main(int argc, char **argv) {
     ros::init(argc, argv, "triangulation");
@@ -36,6 +34,7 @@ int main(int argc, char **argv) {
     std::ofstream myFile(triang_file);
     XmlRpc::XmlRpcValue P;
     myFile << " Filename; P; Tio; Pose\n";
+
     myFile.close();
     nh.getParam(node_name + "/P", P);
     Eigen::Matrix4f CAM;
