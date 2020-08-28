@@ -8,7 +8,6 @@
 #include <message_filters/synchronizer.h>
 #include <message_filters/sync_policies/approximate_time.h>
 #include <string>
-#include "utils/geometry_utils.hpp"
 
 int main(int argc, char **argv) {
     ros::init(argc, argv, "triangulation");
@@ -17,6 +16,7 @@ int main(int argc, char **argv) {
     std::string camera_frame, camera_topic, odom, output_append;
     std::string node_name = ros::this_node::getName();
     std::string triang_file, folder;
+    int collect_image;
     nh.getParam(node_name + "/camera_frame",    camera_frame);
     nh.getParam(node_name + "/camera_topic",    camera_topic);
     nh.getParam(node_name + "/output_append",   output_append);
