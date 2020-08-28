@@ -25,7 +25,19 @@ The overview of the use of this node is as follows:
 
 Once you have collected or choosen the rosbag you will be using for this task, you have will be able to add this repo as a package in your existing repo.
 
-This README will give instructions on how to incorporate this repo into your existing repo. 
+This README will give instructions on how to incorporate this repo into your existing repo.
+
+#### Cloning this repository
+
+The first step is getting this node into your repo. To do this go into the catkin workspace you've been using to repository and cd into the top level package, zeus. Now you can clone the repo.
+```
+git clone https://gitlab.com/catherine.glossop/triangulation.git
+```
+Once you've succesfully cloned the repo, catkin build the package
+```
+catkin build triangulation
+```
+Now we'll continue with the rest of the setup.
 
 #### Working Directory:
 
@@ -49,7 +61,7 @@ Open the launch file, "triangulation.launch" and make the following changes to t
 
 #### Running the node:
 
-Now that all the changes have been made to allow this node to work in your system, you can start running the code. Make sure roscore is running and you've sourced your setup.bash file (source devel/setup.bash). First, build the package using _catkin build_. Then follow the below code:
+Now that all the changes have been made to allow this node to work in your system, you can start running the code. Make sure roscore is running and you've sourced your setup.bash file (source devel/setup.bash). Then follow the below code:
 
 ```
 roslaunch triangulation triangulation.launch
