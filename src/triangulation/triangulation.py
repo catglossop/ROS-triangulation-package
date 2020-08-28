@@ -1,3 +1,4 @@
+#!usr/bin/env python
 #Author: Catherine Glossop
 import rospy
 from std_msgs import String

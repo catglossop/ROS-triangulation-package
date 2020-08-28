@@ -38,10 +38,9 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
 )
-
 # Triangulation
-add_library(triangulation_node src/triangulation/triangulation_node.cpp)
-target_link_libraries(triangulation_node
+ add_library(triangulation_node src/triangulation/triangulation_node.cpp)
+ target_link_libraries(triangulation_node
     ${catkin_LIBRARIES}
     ${OpenCV_LIBRARIES}
 )

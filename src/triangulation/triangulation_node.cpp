@@ -28,7 +28,7 @@ void TriangulationNode::callback(const sensor_msgs::ImageConstPtr& img,
       zeus_tf::get_odom_tf(*odom, Toi);
       zeus_tf::get_transform(tfBuffer, camera_frame, "imu_link", Tic);
       E = zeus_tf::get_inverse_tf(Toi * Tic);
-      Tio = zeus_tf::get_inverse_tf(Toi)
+      Tio = zeus_tf::get_inverse_tf(Toi);
       for (int i = 0; i < 4; i++) {
           for (int j = 0; j < 4; j++) {
             float temp;
