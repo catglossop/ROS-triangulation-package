@@ -1,3 +1,4 @@
+#!usr/bin/env python
 import rospy
 import cv_bridge, cv2, time, csv
 import numpy as np
@@ -106,6 +107,7 @@ def callback(img, odom):
     img_save = bridge.imgmsg_to_cv2(img, desired_encoding="passthrough")
     data = open(os.path.join(directory,triang_file))
     mycsv = csv.writer(data, 'a')
+    print("IN PYTHON NODE")
     if collect_image == 1:
         rospy.Rate(image_rate)
         filetime = rospy.rostime.Time.now.secs()
@@ -121,6 +123,7 @@ def callback(img, odom):
         row = [filename, P_tilda, Tio, Pose]
         mycsv.writerow(row)
         mycsv.close()
+    print
     stop = time.monotonic()
     elapsed = stop - start
     rospy.logdebug("[OBJ] TRIANGULATION TIME: " + str(elasped))

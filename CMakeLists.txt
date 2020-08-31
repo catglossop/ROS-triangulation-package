@@ -19,9 +19,6 @@ find_package(catkin REQUIRED COMPONENTS
   roslint
 )
 
-set(ROSLINT_CPP_OPTS "--filter=-legal, -build/c++11, -whitespace/indent, -whitespace/braces, -runtime/references, -readability/casting")
-roslint_cpp()
-
 find_package(OpenCV 3 REQUIRED)
 find_package(Boost REQUIRED COMPONENTS
     system
@@ -38,15 +35,5 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
 )
-# Triangulation
- add_library(triangulation_node src/triangulation/triangulation_node.cpp)
- target_link_libraries(triangulation_node
-    ${catkin_LIBRARIES}
-    ${OpenCV_LIBRARIES}
-)
-add_executable(triangulation src/triangulation/triangulation.cpp)
-target_link_libraries(triangulation
-  triangulation_node
-  ${catkin_LIBRARIES}
-  ${OpenCV_LIBRARIES}
-)
+catkin_install_python(PROGRAMS src/triangulation/triangulation.py src/triangulation/triangulation_node.py
+DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
