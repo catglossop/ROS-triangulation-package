@@ -1,0 +1,23 @@
+digraph G {
+"odom_local" -> "imu_link_local"[label="Broadcaster: /play_1598935749724726237\nAverage rate: 47.003 Hz\nMost recent transform: 1559489205.019 ( 39446572.237 sec old)\nBuffer length: 2.489 sec\n"];
+"imu_link_local" -> "velodyne_local"[label="Broadcaster: /play_1598935749724726237\nAverage rate: 47.003 Hz\nMost recent transform: 1559489205.019 ( 39446572.237 sec old)\nBuffer length: 2.489 sec\n"];
+"odom" -> "imu_link"[label="Broadcaster: /play_1598935749724726237\nAverage rate: 100.497 Hz\nMost recent transform: 1559489205.019 ( 39446572.237 sec old)\nBuffer length: 2.478 sec\n"];
+"mono_link" -> "c2"[label="Broadcaster: /play_1598935749724726237\nAverage rate: 10.406 Hz\nMost recent transform: 1559489205.059 ( 39446572.196 sec old)\nBuffer length: 2.403 sec\n"];
+"velodyne" -> "mono_link"[label="Broadcaster: /play_1598935749724726237\nAverage rate: 10.403 Hz\nMost recent transform: 1559489205.112 ( 39446572.143 sec old)\nBuffer length: 2.403 sec\n"];
+"base_link" -> "front_link"[label="Broadcaster: /play_1598935749724726237\nAverage rate: 10.407 Hz\nMost recent transform: 1559489205.060 ( 39446572.196 sec old)\nBuffer length: 2.402 sec\n"];
+"imu_link" -> "base_link"[label="Broadcaster: /play_1598935749724726237\nAverage rate: 10.403 Hz\nMost recent transform: 1559489205.096 ( 39446572.159 sec old)\nBuffer length: 2.403 sec\n"];
+"base_link" -> "middle_link"[label="Broadcaster: /play_1598935749724726237\nAverage rate: 10.406 Hz\nMost recent transform: 1559489205.062 ( 39446572.193 sec old)\nBuffer length: 2.402 sec\n"];
+"c2" -> "bev_link"[label="Broadcaster: /play_1598935749724726237\nAverage rate: 10.406 Hz\nMost recent transform: 1559489205.072 ( 39446572.184 sec old)\nBuffer length: 2.402 sec\n"];
+"imu_link" -> "velodyne"[label="Broadcaster: /play_1598935749724726237\nAverage rate: 10.397 Hz\nMost recent transform: 1559489205.106 ( 39446572.149 sec old)\nBuffer length: 2.405 sec\n"];
+"velodyne" -> "mono_link2"[label="Broadcaster: /play_1598935749724726237\nAverage rate: 10.402 Hz\nMost recent transform: 1559489205.119 ( 39446572.136 sec old)\nBuffer length: 2.403 sec\n"];
+"velodyne" -> "mono_link3"[label="Broadcaster: /play_1598935749724726237\nAverage rate: 10.404 Hz\nMost recent transform: 1559489205.130 ( 39446572.125 sec old)\nBuffer length: 2.403 sec\n"];
+"velodyne" -> "mono_link4"[label="Broadcaster: /play_1598935749724726237\nAverage rate: 10.422 Hz\nMost recent transform: 1559489205.037 ( 39446572.218 sec old)\nBuffer length: 2.303 sec\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1598935777.255"[ shape=plaintext ] ;
+ }->"odom_local";
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1598935777.255"[ shape=plaintext ] ;
+ }->"odom";
+}

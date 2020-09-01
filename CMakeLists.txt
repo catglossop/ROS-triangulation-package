@@ -4,7 +4,6 @@ include("../config.cmake")
 
 find_package(catkin REQUIRED COMPONENTS
   message_generation
-  roscpp
   rospy
   std_msgs
   cv_bridge
@@ -16,7 +15,6 @@ find_package(catkin REQUIRED COMPONENTS
   tf2
   tf2_geometry_msgs
   tf2_ros
-  roslint
 )
 
 find_package(OpenCV 3 REQUIRED)
