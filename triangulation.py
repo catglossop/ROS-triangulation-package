@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import os, glob, cv2, csv, time
 import sys, getopt
 import pandas as pd
+import re
 
 
 
@@ -107,8 +108,8 @@ def get_jacobian(matrix, p_i):
 
 def convert_to_matrix(matrix_str):
     P = np.array([])
-    for i in matrix_str.split(' '): #split at the spaces between elements
-        if i != '': #if there is a empty string, remove it otherwise convert to a float and append
+    for i in re.split(' |\[|\]', matrix_str): #split at the spaces between elements
+        if i != '' and i != '[' and i != ']': #if there is a empty string, remove it otherwise convert to a float and append
             P = np.append(P,float(i))
     return P
 
