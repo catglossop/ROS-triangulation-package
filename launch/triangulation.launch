@@ -3,7 +3,7 @@
     <arg name="thread_num" default="8"/>
     <arg name="use_camera1" default="1"/>
     <!-- TRIANGULATION -->
-    <node pkg="triangulation" type="triangulation.py" name="triangulation" output="screen">
+    <node pkg="triangulation" type="triangulation_exec.py" name="triangulation" output="screen">
         <rosparam command="load" file="$(find triangulation)/config/params_camera_matrix.yaml" />
         <param name="camera_frame" value="mono_link" /> <!-- camera frame topic -->
         <param name="camera_topic" value="/blackfly/image_color" /> <!-- camera feed topic -->
