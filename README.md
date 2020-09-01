@@ -5,11 +5,17 @@ This project contains 3 branches:
 2. python_branch: contains the python version of the node
 3. cpp_branch: contains the c++ version of the node
 
+You are free to use either the python or c++ branches for running the code by just switching between the branches. Both work exactly the same and any differences are outlined in this README.
+
 This ROS node is meant to be used with any autonmous car system to locate objects in 3D world coordinates from 2D rosbag images. It's purpose is for adding missing map elements, building maps specific objects in the car's environment, etc.
 
 The math for the triangulation algorithm can be found in "triangulation_math.pdf" in this repo. This document contains two approaches to triangulation, one iterative and one not. The second approach, the 3D rays approach is implemented in this repo.
 
 The required elements for using this code package are:
+1. A rosbag with:
+   - a camera feed
+   - published odometry messages 
+   - a published transform tree (transformation between the )
 1. A camera feed in your rosbag that includes the object(s) of interest
 2. Published Odometry messages
 3. A published transform tree including:
@@ -55,7 +61,7 @@ mkdir [name of folder to store images] ex. "images"
 ```
 #### Launch File and Configuration file:
 
-Open the launch file, "triangulation.launch" and make the following changes to the parameters:
+Open the launch file, "triangulation.launch", under launch and make the following changes to the parameters:
 1. Change the value of "camera frame" to the name of the camera frame in your repository
 2. Change the value of "camera topic" and "odom" to the name of the camera feed topic and odometry topic in your repository
 3. Change the "image rate" to the frequency of image collection you desire
