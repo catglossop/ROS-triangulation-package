@@ -14,15 +14,11 @@ The math for the triangulation algorithm can be found in "triangulation_math.pdf
 The required elements for using this code package are:
 1. A rosbag with:
    - a camera feed
-   - published odometry messages 
-   - a published transform tree (transformation between the )
-1. A camera feed in your rosbag that includes the object(s) of interest
-2. Published Odometry messages
-3. A published transform tree including:
-   - The camera frame
-   - The odometry frame
-   - Any necessary frames to transform between the previous two frames
-4. Geometry, sensor, and nav messages, message filters, and Eigen libraries installed
+   - published odometry messages
+   - a published transform tree (transformation between the odometry frame and the camera frame)
+3. All necessary packages and dependencies listed in the CMakeLists.txt and package.xml. Be sure to review this before you start.
+
+NOTE: the c++ branch requires the transform_utils file from the kalman package where as python has those functions built into the executable. A config.cmake file is also necessary for both versions of the node.
 
 The overview of the use of this node is as follows:
 1. A rosbag is chosen or recorded that contains the object(s) of interest. **A diverse range of perspectives to take a large number of samples should be taken (30 - 50 images)**. This diversity will depend on the direction and speed of approach to the object.
@@ -42,7 +38,7 @@ This README will give instructions on how to incorporate this repo into your exi
 
 The first step is getting this node into your repo. To do this go into the catkin workspace you've been using to repository and cd into the top level package, zeus. Now you can clone the repo.
 ```
-git clone https://gitlab.com/catherine.glossop/triangulation.git
+git clone (http... your clone link)
 ```
 Once you've succesfully cloned the repo, catkin build the package
 ```
@@ -72,9 +68,12 @@ Open the launch file, "triangulation.launch", under launch and make the followin
 
 #### Running the node:
 
-Now that all the changes have been made to allow this node to work in your system, you can start running the code. Make sure roscore is running and you've sourced your setup.bash file (source devel/setup.bash). Then follow the below code:
+Now that all the changes have been made to allow this node to work in your system, you can start running the code. Then follow the below code:
 
 ```
+cd ~/your_catkin_workspace
+source devel/setup.bash
+roscore&
 roslaunch triangulation triangulation.launch
 ```
 Open a new terminal
@@ -101,7 +100,7 @@ If you used multiple rosbags or intervals of a rosbag, first run the following c
 python triangulation.py --combine -1 <file1> -2 <file2> -o <outputfile>
 ```
 
-This will append two CSV files into the output CSV that you choose. The output should be "Successfully concatenated csv files".
+This will append two CSV files into the output CSV that you choose. The output should be "Successfully combined csv files".
 
 Now that all the data was been prepared, the sample images can be processed. This means labelling the images with object centres. The triangulation algorithm will automatically run after this. Run the following command:
 ```
