@@ -28,8 +28,9 @@ def main():
     myNode = TriangulationNode()
     myNode.set_node_name()
     myNode.get_ros_parameters()
+    myNode.initialize_transforms()
     with open(triang_file, 'w') as myFile:
-        headings = "Filename; P; Tio; Pose\n"
+        headings = ["Filename", "P", "Tio", "Pose"]
         writer = csv.writer(myFile)
         writer.writerow(headings)
         myFile.close()
@@ -43,8 +44,7 @@ def main():
     myNode.set_camera_matrix(CAM)
     sync = message_filters.ApproximateTimeSynchronizer([sub_img, sub_odom], 100, 0.1, allow_headerless=True)
     sync.registerCallback(callback)
-    rospy.loginfo("AM I IN HERE????")
-    rospy.loginfo("[OBJ] Triangulation running")
+    rospy.loginfo("[OBJ] Triangulation running!")
     rospy.spin()
 
 if __name__ == '__main__':

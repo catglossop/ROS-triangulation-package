@@ -33,5 +33,5 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
 )
-catkin_install_python(PROGRAMS src/triangulation/triangulation.py src/triangulation/triangulation_node.py
+catkin_install_python(PROGRAMS src/triangulation/triangulation_exec.py src/triangulation/triangulation_node.py
 DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

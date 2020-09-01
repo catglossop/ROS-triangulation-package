@@ -52,8 +52,8 @@ class transforms:
             I = np.identity(3)
             R = (eta**2 - np.matmul(epsilon.transpose(), epsilon)[0,0])*I + np.subtract(2*(epsilon*epsilon.transpose()), 2*eta*epsilon_cross)
         Toi[0:3,0:3] = R.transpose()
-        Toi[0:3,:3] = p
-        Toi[:3,0:3] = np.zeros(shape=(1,3))
+        Toi[0:3,3] = p.reshape(3)
+        Toi[3,0:3] = np.zeros(shape=(1,3))
         Toi[3,3] = 1.0
         return Toi
 
@@ -69,19 +69,19 @@ class transforms:
         R = (eta**2 - np.matmul(epsilon.transpose(), epsilon)[0,0])*I + np.subtract(2*(epsilon*epsilon.transpose()), 2*eta*epsilon_cross)
         p = -1 * R * p
         T[0:3,0:3] = R.transpose()
-        T[0:3,:3] = p
-        T[:3,0:3] = np.zeros(shape=(1,3))
+        T[0:3,3] = p.reshape(3)
+        T[3,0:3] = np.zeros(shape=(1,3))
         T[3,3] = 1.0
         return T
 
     def get_transform(self, src_frame, tgt_frame):
         got_tf = False
-        timeout = 0.25
+        timeout = 0.025
         tfBuffer = tf2_ros.Buffer()
         listener = tf2_ros.TransformListener(tfBuffer)
         while (not got_tf and not rospy.is_shutdown()):
             try:
-                tf_temp = tfBuffer.lookup_transform(src_frame, tgt_frame, rospy.Time(0), rospy.Duration(timeout))
+                tf_temp = tfBuffer.lookup_transform(src_frame, tgt_frame, rospy.Time(), rospy.Duration(timeout))
                 got_tf = True
             except(tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
                 got_tf = False
@@ -90,7 +90,7 @@ class transforms:
                 T = self.convert_to_eigen(tf_temp)
             else:
                 T = np.zeros(shape=(4,4))
-        return True
+        return T
 
 class TriangulationNode:
     def set_camera_matrix(self, CAM):
@@ -104,10 +104,10 @@ class TriangulationNode:
 
     def initialize_transforms(self):
         tfBuffer = tf2_ros.Buffer()
-        tfListener = tf.TransformListener()
-        global Tvi
+        tfListener = tf2_ros.TransformListener(tfBuffer)
+        global Tic
         x = transforms()
-        Tvi = x.get_transform("odom", "mono_link")
+        Tic = x.get_transform("mono_link", "imu_link")
         return True
 
     def get_ros_parameters(self):
@@ -130,7 +130,6 @@ def callback(img, odom):
     img_save = bridge.imgmsg_to_cv2(img, desired_encoding="passthrough")
     data = open(triang_file, 'a')
     mycsv = csv.writer(data)
-    rospy.loginfo("IN PYTHON NODE")
     if collect_image == 1:
         rospy.Rate(image_rate)
         filetime = rospy.rostime.Time.now()
@@ -140,15 +139,16 @@ def callback(img, odom):
         Toi = transform.get_odom_tf(odom)
         Tio = transform.get_inverse_tf(Toi)
         Tic = transform.get_transform(camera_frame, "imu_link")
+        print(Tic)
         E = np.zeros(shape =(4,4))
         E = transform.get_inverse_tf(Toi * Tic)
         P = rospy.get_param(node_name + "/P")
         P = np.matrix(P)
         P = P.reshape(4,4)
         P_tilda = np.matmul(P, E)
-        P_tilda = P_tilda.reshape(-1,16)
-        Tio = np.reshape(Tio, (-1,16))
-        Pose = np.matrix([odom.pose.pose.position.x, odom.pose.pose.position.y, odom.pose.pose.position.z])
+        P_tilda = np.asarray(P_tilda).reshape(-1)
+        Tio = np.asarray(Tio).reshape(-1)
+        Pose = np.array([odom.pose.pose.position.x, odom.pose.pose.position.y, odom.pose.pose.position.z])
         row = [filename, P_tilda, Tio, Pose]
         mycsv.writerow(row)
         data.close()
