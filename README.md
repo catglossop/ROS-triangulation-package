@@ -1,5 +1,10 @@
 # Triangulation
 
+This project contains 3 branches:
+1. Master: for documentation purposes, contains both c++ and python versions of the node and all the documentation
+2. python_branch: contains the python version of the node
+3. cpp_branch: contains the c++ version of the node
+
 This ROS node is meant to be used with any autonmous car system to locate objects in 3D world coordinates from 2D rosbag images. It's purpose is for adding missing map elements, building maps specific objects in the car's environment, etc.
 
 The math for the triangulation algorithm can be found in "triangulation_math.pdf" in this repo. This document contains two approaches to triangulation, one iterative and one not. The second approach, the 3D rays approach is implemented in this repo.
