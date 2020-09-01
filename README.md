@@ -37,7 +37,7 @@ Once you've succesfully cloned the repo, catkin build the package
 ```
 catkin build triangulation
 ```
-Now we'll continue with the rest of the setup.
+If there are symlink warnings, that is okay but if it doesn't build there may be an issue with the included packages, required libraries, or dependencies listed in the CMakeLists.txt and package.xml. Check that you have all the required components for building and running this code. Now we'll continue with the rest of the setup.
 
 #### Working Directory:
 
@@ -48,6 +48,7 @@ mkdir [directory name] ex. "triangulation"
 cd [directory name]
 mkdir [name of folder to store images] ex. "images"
 ```
+Move the triangulation.py file into this directory for use later after collecting your csv and images. 
 #### Launch File and Configuration file:
 
 Open the launch file, "triangulation.launch" and make the following changes to the parameters:

@@ -10,7 +10,7 @@ import os
 class transforms:
 
     def get_inverse_tf(self, T):
-        inv = np.zeros(shape=(4,4))
+        inv = np.identity(4)
 
         R = T[0:3,0:3]
         t = T[0:3,3]
@@ -139,7 +139,6 @@ def callback(img, odom):
         Toi = transform.get_odom_tf(odom)
         Tio = transform.get_inverse_tf(Toi)
         Tic = transform.get_transform(camera_frame, "imu_link")
-        print(Tic)
         E = np.zeros(shape =(4,4))
         E = transform.get_inverse_tf(Toi * Tic)
         P = rospy.get_param(node_name + "/P")
