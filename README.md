@@ -1,17 +1,24 @@
 # Triangulation
 
+This project contains 3 branches:
+1. Master: for documentation purposes, contains both c++ and python versions of the node and all the documentation
+2. python_branch: contains the python version of the node
+3. cpp_branch: contains the c++ version of the node
+
+You are free to use either the python or c++ branches for running the code by just switching between the branches. Both work exactly the same and any differences are outlined in this README.
+
 This ROS node is meant to be used with any autonmous car system to locate objects in 3D world coordinates from 2D rosbag images. It's purpose is for adding missing map elements, building maps specific objects in the car's environment, etc.
 
 The math for the triangulation algorithm can be found in "triangulation_math.pdf" in this repo. This document contains two approaches to triangulation, one iterative and one not. The second approach, the 3D rays approach is implemented in this repo.
 
 The required elements for using this code package are:
-1. A camera feed in your rosbag that includes the object(s) of interest
-2. Published Odometry messages
-3. A published transform tree including:
-   - The camera frame
-   - The odometry frame
-   - Any necessary frames to transform between the previous two frames
-4. Geometry, sensor, and nav messages, message filters, and Eigen libraries installed
+1. A rosbag with:
+   - a camera feed
+   - published odometry messages
+   - a published transform tree (transformation between the odometry frame and the camera frame)
+3. All necessary packages and dependencies listed in the CMakeLists.txt and package.xml. Be sure to review this before you start.
+
+NOTE: the c++ branch requires the transform_utils file from the kalman package where as python has those functions built into the executable. A config.cmake file is also necessary for both versions of the node.
 
 The overview of the use of this node is as follows:
 1. A rosbag is chosen or recorded that contains the object(s) of interest. **A diverse range of perspectives to take a large number of samples should be taken (30 - 50 images)**. This diversity will depend on the direction and speed of approach to the object.
@@ -31,7 +38,7 @@ This README will give instructions on how to incorporate this repo into your exi
 
 The first step is getting this node into your repo. To do this go into the catkin workspace you've been using to repository and cd into the top level package, zeus. Now you can clone the repo.
 ```
-git clone https://gitlab.com/catherine.glossop/triangulation.git
+git clone (http... your clone link)
 ```
 Once you've succesfully cloned the repo, catkin build the package
 ```
@@ -50,7 +57,7 @@ mkdir [name of folder to store images] ex. "images"
 ```
 #### Launch File and Configuration file:
 
-Open the launch file, "triangulation.launch" and make the following changes to the parameters:
+Open the launch file, "triangulation.launch", under launch and make the following changes to the parameters:
 1. Change the value of "camera frame" to the name of the camera frame in your repository
 2. Change the value of "camera topic" and "odom" to the name of the camera feed topic and odometry topic in your repository
 3. Change the "image rate" to the frequency of image collection you desire
@@ -61,9 +68,12 @@ Open the launch file, "triangulation.launch" and make the following changes to t
 
 #### Running the node:
 
-Now that all the changes have been made to allow this node to work in your system, you can start running the code. Make sure roscore is running and you've sourced your setup.bash file (source devel/setup.bash). Then follow the below code:
+Now that all the changes have been made to allow this node to work in your system, you can start running the code. Then follow the below code:
 
 ```
+cd ~/your_catkin_workspace
+source devel/setup.bash
+roscore&
 roslaunch triangulation triangulation.launch
 ```
 Open a new terminal
@@ -90,7 +100,7 @@ If you used multiple rosbags or intervals of a rosbag, first run the following c
 python triangulation.py --combine -1 <file1> -2 <file2> -o <outputfile>
 ```
 
-This will append two CSV files into the output CSV that you choose. The output should be "Successfully concatenated csv files".
+This will append two CSV files into the output CSV that you choose. The output should be "Successfully combined csv files".
 
 Now that all the data was been prepared, the sample images can be processed. This means labelling the images with object centres. The triangulation algorithm will automatically run after this. Run the following command:
 ```
